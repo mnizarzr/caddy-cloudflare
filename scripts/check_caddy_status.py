@@ -15,10 +15,10 @@ CUSTOM_TAG_PREFIX = ""
 # These are the platforms WE want to build and require the OFFICIAL image to have available.
 REQUIRED_PLATFORMS = {
     "linux/amd64",
-    "linux/arm64",
-    "linux/arm/v7",
-    "linux/ppc64le",
-    "linux/s390x",
+    # "linux/arm64",
+    # "linux/arm/v7",
+    # "linux/ppc64le",
+    # "linux/s390x",
 }
 
 def log_error(message):
@@ -181,7 +181,7 @@ def main():
     # Exit if official image isn't ready
     if not official_image_ready:
         log_info("Result: Official image is not ready. No build triggered.")
-        set_action_output('NEEDS_BUILD', 'false') 
+        set_action_output('NEEDS_BUILD', 'false')
         set_action_output('LATEST_VERSION', latest_gh_tag)
         sys.exit(0)
 
@@ -207,8 +207,8 @@ def main():
     needs_build = not custom_image_complete
 
     log_info(f"Step 3: Final decision for Caddy {latest_gh_tag}: Needs build = {needs_build}")
-    set_action_output('NEEDS_BUILD', 'true' if needs_build else 'false') 
-    set_action_output('LATEST_VERSION', latest_gh_tag) 
+    set_action_output('NEEDS_BUILD', 'true' if needs_build else 'false')
+    set_action_output('LATEST_VERSION', latest_gh_tag)
 
     end_time = datetime.now(timezone.utc)
     log_info(f"--- Check finished at {end_time.isoformat()} (Duration: {end_time - start_time}) ---")
